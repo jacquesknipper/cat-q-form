@@ -249,7 +249,7 @@
 
     <script>
         // Configuration - REMPLACEZ CETTE URL PAR VOTRE URL GOOGLE APPS SCRIPT
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwgO49-SaTNXC5bg8l-Cb7BXnRUtTIuYHBK3yhISg1hcmzLjury6B_7YEHMzQcV90Njvw/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxm5YjNEonuhL_dHBpsMNBoNKZR3v2i61HdG6nsZPivI72xSlrB-L2Sg0THE3Tarmbd1w/exec';
         
         // Questions data
         const questions = [
@@ -354,12 +354,23 @@
                         assimilation += score;
                     }
                     
+                    // Determine category
+                    let category = '';
+                    if (q.num >= 1 && q.num <= 9) {
+                        category = 'Compensation';
+                    } else if (q.num >= 10 && q.num <= 17) {
+                        category = 'Masking';
+                    } else if (q.num >= 18 && q.num <= 25) {
+                        category = 'Assimilation';
+                    }
+                    
                     responses.push({
                         question: q.num,
                         text: q.text,
-                        rawAnswer: selected.value,
-                        scoreUsed: score,
-                        reversed: reversedItems.includes(q.num)
+                        response: selected.value,
+                        score: score,
+                        inverted: reversedItems.includes(q.num),
+                        category: category
                     });
                 }
             });
